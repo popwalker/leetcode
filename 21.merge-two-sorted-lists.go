@@ -13,26 +13,37 @@
  * }
  */
 func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
-	var l *ListNode
-
-	for l1.Next != nil {
-		e1 := l1.Val
-		e2 := l2.Val
-
-		if e1 > e2 {
-			l.Next = &ListNode{
-				Val: e2,
-			}
-		} else {
-			l.Val = e2
-			l.Next = &ListNode{
-				Val: e1,
-			}
-		}
-
-		l1 = l1.Next
-		l2 = l2.Next
+	if l1 == nil {
+		return l2
 	}
+
+	if l2 == nil {
+		return l1
+	}
+
+	var result = &ListNode{}
+	var cur = result
+
+	for l1 != nil && l2 != nil {
+		if l1.Val < l2.Val {
+			cur.Next = l1
+			l1 = l1.Next
+		} else {
+			cur.Next = l2
+			l2 = l2.Next
+		}
+		cur = cur.Next
+	}
+
+	if l1 != nil {
+		cur.Next = l1
+	}
+
+	if l2 != nil {
+		cur.Next = l2
+	}
+
+	return result.Next
 }
 
 // @lc code=end
