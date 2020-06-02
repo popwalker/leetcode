@@ -34,12 +34,18 @@ class Solution:
     def preorder(self, root: 'Node') -> List[int]:
         if not root: return []
 
-        stack, res = [root,], []
+        stack, res = [root], []
 
         while stack:
             node = stack.pop()
-            res.append(node.val)
-            stack.extend(node.children[::-1])
+            if node:
+               stack.extend(node.children[::-1])
+               stack.append(node)
+               stack.append(None)
+            else:
+                v = stack.pop()
+                res.append(v.val)
+
         return res
 
 

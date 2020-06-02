@@ -37,11 +37,14 @@ class Solution:
 
         while stack:
             node = stack.pop()
-            res.append(node.val)
-            if node.right:
-                stack.append(node.right)
-            if node.left:
-                stack.append(node.left)
+            if node:
+                if node.right: stack.append(node.right)
+                if node.left: stack.append(node.left)
+                stack.append(node)
+                stack.append(None)
+            else:
+                v = stack.pop()
+                res.append(v.val)
 
         return res
 
